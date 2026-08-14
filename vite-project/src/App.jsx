@@ -14,7 +14,7 @@ function App() {
         <main className={styles.app}>
           <div className={styles.container}>
             <h1 className={styles.title}>
-              Todo App
+              Test
             </h1>
 
             <ThemeSwitcher />
