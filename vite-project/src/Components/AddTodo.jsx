@@ -9,6 +9,11 @@ function AddTodo() {
   const { addTodo } = useTodo();
 
   function handleAddTodo() {
+    if (text.trim() === "") {
+      alert("Du må skrive inn en todo!");
+      return;
+    }
+
     addTodo(text);
     setText("");
   }
@@ -21,6 +26,11 @@ function AddTodo() {
         placeholder="Skriv en todo..."
         value={text}
         onChange={(event) => setText(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            handleAddTodo();
+          }
+        }}
       />
 
       <button
