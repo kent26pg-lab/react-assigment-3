@@ -1,20 +1,38 @@
+import { useState } from "react";
 import { useTodo } from "../context/TodoContext";
+import CompletedTasksToggle from "./CompletedTasksToggle";
+
 import styles from "./TodoList.module.css";
 
 function TodoList() {
   const { todos, toggleTodo, removeTodo } = useTodo();
 
+  const [showCompleted, setShowCompleted] = useState(true);
+
+  const visibleTodos = todos.filter(
+    (todo) => showCompleted || !todo.done
+  );
+
   return (
     <section className={styles.card}>
-      <h2 className={styles.title}>Todoer</h2>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Todoer</h2>
 
-      {todos.length === 0 ? (
+        <CompletedTasksToggle
+          showCompleted={showCompleted}
+          onToggle={() => setShowCompleted((prev) => !prev)}
+        />
+      </div>
+
+      {visibleTodos.length === 0 ? (
         <p className={styles.empty}>
-          Ingen todoer ennå.
+          {todos.length === 0
+            ? "Ingen todoer ennå."
+            : "Ingen aktive todoer."}
         </p>
       ) : (
         <ul className={styles.list}>
-          {todos.map((todo) => (
+          {visibleTodos.map((todo) => (
             <li className={styles.todo} key={todo.id}>
               <input
                 className={styles.checkbox}
@@ -34,6 +52,7 @@ function TodoList() {
               <button
                 className={styles.removeButton}
                 onClick={() => removeTodo(todo.id)}
+                type="button"
               >
                 X
               </button>

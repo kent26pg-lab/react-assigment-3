@@ -14,8 +14,17 @@
     box-shadow 0.3s ease;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 16px;
+}
+
 .title {
-  margin: 0 0 16px;
+  margin: 0;
 
   color: var(--text);
 
