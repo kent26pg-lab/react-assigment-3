@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useTodo } from "../context/TodoContext";
 
+import styles from "./AddTodo.module.css";
+
 function AddTodo() {
   const [text, setText] = useState("");
 
@@ -12,18 +14,22 @@ function AddTodo() {
   }
 
   return (
-    <div>
+    <section className={styles.card}>
       <input
+        className={styles.input}
         type="text"
         placeholder="Skriv en todo..."
         value={text}
         onChange={(event) => setText(event.target.value)}
       />
 
-      <button onClick={handleAddTodo}>
+      <button
+        className={styles.button}
+        onClick={handleAddTodo}
+      >
         Legg til
       </button>
-    </div>
+    </section>
   );
 }
 
