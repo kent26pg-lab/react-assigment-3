@@ -11,13 +11,19 @@ function App() {
   return (
     <ThemeProvider>
       <TodoProvider>
-        <h1>Todo App</h1>
+        <main className={styles.app}>
+          <div className={styles.container}>
+            <h1 className={styles.title}>
+              Todo App
+            </h1>
 
-        <ThemeSwitcher />
+            <ThemeSwitcher />
 
-        <AddTodo />
+            <AddTodo />
 
-        <TodoList />
+            <TodoList />
+          </div>
+        </main>
       </TodoProvider>
     </ThemeProvider>
   );
