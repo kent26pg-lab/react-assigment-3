@@ -1,38 +1,54 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const TodoContext = createContext();
 
-export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState([]);
+const STORAGE_KEY = "todos";
 
-  function addTodo(text) {
+export function TodoProvider({ children }) {
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem(STORAGE_KEY);
+
+    if (!savedTodos) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(savedTodos);
+    } catch (error) {
+      console.error("Kunne ikke lese todoer fra localStorage:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (text) => {
     const newTodo = {
       id: Date.now(),
-      text: text,
+      text,
       done: false,
     };
 
-    setTodos((currentTodos) => [
-      ...currentTodos,
-      newTodo,
-    ]);
-  }
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+  };
 
-  function toggleTodo(id) {
-    setTodos((currentTodos) =>
-      currentTodos.map((todo) =>
+  const toggleTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id
           ? { ...todo, done: !todo.done }
           : todo
       )
     );
-  }
+  };
 
-  function removeTodo(id) {
-    setTodos((currentTodos) =>
-      currentTodos.filter((todo) => todo.id !== id)
+  const removeTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.filter((todo) => todo.id !== id)
     );
-  }
+  };
 
   return (
     <TodoContext.Provider
@@ -49,5 +65,13 @@ export function TodoProvider({ children }) {
 }
 
 export function useTodo() {
-  return useContext(TodoContext);
+  const context = useContext(TodoContext);
+
+  if (!context) {
+    throw new Error(
+      "useTodo må brukes inne i en TodoProvider"
+    );
+  }
+
+  return context;
 }
