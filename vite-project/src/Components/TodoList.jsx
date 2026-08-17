@@ -16,7 +16,7 @@ function TodoList() {
   return (
     <section className={styles.card}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Todoer</h2>
+        <h2 className={styles.title}>Tasks</h2>
 
         <CompletedTasksToggle
           showCompleted={showCompleted}
@@ -27,8 +27,8 @@ function TodoList() {
       {visibleTodos.length === 0 ? (
         <p className={styles.empty}>
           {todos.length === 0
-            ? "Ingen todoer ennå."
-            : "Ingen aktive todoer."}
+            ? "No tasks yet."
+            : "No active Task."}
         </p>
       ) : (
         <ul className={styles.list}>

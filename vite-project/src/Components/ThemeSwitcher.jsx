@@ -7,14 +7,14 @@ function ThemeSwitcher() {
   return (
     <section className={styles.card}>
       <p className={styles.text}>
-        Gjeldende tema: {theme}
+        Current Theme: {theme}
       </p>
 
       <button
         className={styles.button}
         onClick={toggleTheme}
       >
-        Bytt tema
+        Change Theme
       </button>
     </section>
   );

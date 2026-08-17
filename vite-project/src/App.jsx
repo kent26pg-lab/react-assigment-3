@@ -14,7 +14,7 @@ function App() {
         <main className={styles.app}>
           <div className={styles.container}>
             <h1 className={styles.title}>
-              Test
+              My tasks
             </h1>
 
             <ThemeSwitcher />

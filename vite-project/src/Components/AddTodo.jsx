@@ -10,7 +10,7 @@ function AddTodo() {
 
   function handleAddTodo() {
     if (text.trim() === "") {
-      alert("Du må skrive inn en todo!");
+      alert("Please enter a task.");
       return;
     }
 
@@ -23,7 +23,7 @@ function AddTodo() {
       <input
         className={styles.input}
         type="text"
-        placeholder="Skriv en todo..."
+        placeholder="Add a task..."
         value={text}
         onChange={(event) => setText(event.target.value)}
         onKeyDown={(event) => {
@@ -37,7 +37,7 @@ function AddTodo() {
         className={styles.button}
         onClick={handleAddTodo}
       >
-        Legg til
+        Add
       </button>
     </section>
   );
